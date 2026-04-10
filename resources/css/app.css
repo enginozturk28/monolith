@@ -84,3 +84,166 @@
         color: var(--color-primary-fg);
     }
 }
+
+/*
+ * monolith-prose — Filament RichEditor'den gelen HTML için tipografik stil.
+ *
+ * Bu sınıf dahilinde tüm tipografi, renk ve aralıklar tema token'ları
+ * üzerinden çalışır, bu sayede Faz 3'teki dinamik tema paneli değişiklikleri
+ * makale ve sayfa içeriklerine otomatik yansır.
+ */
+.monolith-prose {
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 1.0625rem; /* 17px */
+    line-height: 1.7;
+}
+
+.monolith-prose > * + * {
+    margin-top: 1.25em;
+}
+
+.monolith-prose h1,
+.monolith-prose h2,
+.monolith-prose h3,
+.monolith-prose h4,
+.monolith-prose h5,
+.monolith-prose h6 {
+    font-family: var(--font-heading);
+    color: var(--color-text);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    margin-top: 2em;
+    margin-bottom: 0.75em;
+}
+
+.monolith-prose h1 {
+    font-size: 2.5rem;
+}
+
+.monolith-prose h2 {
+    font-size: 1.875rem;
+}
+
+.monolith-prose h3 {
+    font-size: 1.5rem;
+}
+
+.monolith-prose h4 {
+    font-size: 1.25rem;
+}
+
+.monolith-prose p {
+    margin-top: 1.25em;
+    margin-bottom: 1.25em;
+}
+
+.monolith-prose strong {
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.monolith-prose em {
+    font-style: italic;
+}
+
+.monolith-prose a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+    transition: opacity 0.15s ease;
+}
+
+.monolith-prose a:hover {
+    opacity: 0.75;
+}
+
+.monolith-prose ul,
+.monolith-prose ol {
+    padding-left: 1.5em;
+    margin-top: 1.25em;
+    margin-bottom: 1.25em;
+}
+
+.monolith-prose ul {
+    list-style-type: disc;
+}
+
+.monolith-prose ol {
+    list-style-type: decimal;
+}
+
+.monolith-prose li {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    padding-left: 0.25em;
+}
+
+.monolith-prose li::marker {
+    color: var(--color-text-muted);
+}
+
+.monolith-prose blockquote {
+    border-left: 3px solid var(--color-accent);
+    padding-left: 1.25em;
+    font-style: italic;
+    color: var(--color-text-muted);
+    margin: 1.75em 0;
+}
+
+.monolith-prose hr {
+    border: 0;
+    border-top: 1px solid var(--color-border);
+    margin: 2.5em 0;
+}
+
+.monolith-prose code {
+    background: var(--color-surface-alt);
+    padding: 0.125em 0.375em;
+    border-radius: 0.25rem;
+    font-size: 0.9em;
+    font-family: ui-monospace, "SF Mono", Menlo, Monaco, "Cascadia Mono", Consolas, monospace;
+}
+
+.monolith-prose pre {
+    background: var(--color-surface-alt);
+    padding: 1em 1.25em;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-border);
+    overflow-x: auto;
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+
+.monolith-prose pre code {
+    background: transparent;
+    padding: 0;
+}
+
+.monolith-prose img {
+    border-radius: 0.5rem;
+    max-width: 100%;
+    height: auto;
+    margin: 1.75em auto;
+}
+
+.monolith-prose table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.75em 0;
+    font-size: 0.9375rem;
+}
+
+.monolith-prose th,
+.monolith-prose td {
+    border: 1px solid var(--color-border);
+    padding: 0.625em 0.875em;
+    text-align: left;
+}
+
+.monolith-prose th {
+    background: var(--color-surface-alt);
+    font-weight: 600;
+}
