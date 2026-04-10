@@ -14,31 +14,43 @@ class ArticleCategoriesTable
     {
         return $table
             ->columns([
-                TextColumn::make('slug')
-                    ->searchable(),
-                TextColumn::make('name')
-                    ->searchable(),
                 TextColumn::make('sort_order')
+                    ->label('Sıra')
                     ->numeric()
-                    ->sortable(),
-                TextColumn::make('created_at')
-                    ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->width('1%'),
+
+                TextColumn::make('name')
+                    ->label('Kategori Adı')
+                    ->searchable()
+                    ->sortable()
+                    ->weight('medium'),
+
+                TextColumn::make('slug')
+                    ->label('URL')
+                    ->badge()
+                    ->color('gray'),
+
+                TextColumn::make('articles_count')
+                    ->label('Makale Sayısı')
+                    ->counts('articles')
+                    ->badge()
+                    ->color('gray'),
+
                 TextColumn::make('updated_at')
-                    ->dateTime()
+                    ->label('Güncellendi')
+                    ->dateTime('d.m.Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                //
-            ])
+            ->defaultSort('sort_order')
+            ->reorderable('sort_order')
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()->label('Düzenle'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
+                    DeleteBulkAction::make()->label('Sil'),
                 ]),
             ]);
     }

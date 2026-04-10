@@ -243,6 +243,10 @@ class MonolithSeeder extends Seeder
             ['name' => 'Genel', 'sort_order' => 0]
         );
 
+        // Yazar olarak mevcut ilk kullanıcıyı kullan (admin user yeniden
+        // oluşturulduğunda ID sabitlenmesin diye).
+        $authorId = \App\Models\User::query()->orderBy('id')->value('id');
+
         $articles = [
             [
                 'title' => 'Hukuki Uyuşmazlıklarda Önleyici Yaklaşımın Önemi',
@@ -261,7 +265,7 @@ class MonolithSeeder extends Seeder
                 ['slug' => Str::slug($row['title'])],
                 [
                     'article_category_id' => $category->id,
-                    'author_id' => 1, // Ethem Kaan Loğoğlu (ilk kullanıcı)
+                    'author_id' => $authorId,
                     'title' => $row['title'],
                     'excerpt' => $row['excerpt'],
                     'body' => $row['body'],
