@@ -28,9 +28,15 @@ export interface ThemeTokens {
     fontBody: string;
 }
 
+export interface FooterService {
+    slug: string;
+    title: string;
+}
+
 export interface SharedProps extends InertiaPageProps {
     site: SiteSettings;
     theme: ThemeTokens;
+    footerServices: FooterService[];
     flash: {
         success?: string;
         error?: string;

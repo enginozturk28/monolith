@@ -2,8 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Service;
 use App\Support\ThemeManager;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -36,6 +38,21 @@ class HandleInertiaRequests extends Middleware
             'site' => fn () => app(\App\Support\SiteSettings::class)->forInertia(),
 
             'theme' => fn () => $theme->forInertia(),
+
+            // Footer'da listelenecek faaliyet alanları — cache'li, ServiceResource
+            // save'lerinde invalidate edilmeli (Faz 3'te event listener ile).
+            'footerServices' => fn () => Cache::remember(
+                'monolith.footer_services',
+                now()->addHours(6),
+                fn () => Service::query()
+                    ->where('is_published', true)
+                    ->orderBy('sort_order')
+                    ->orderBy('title')
+                    ->get(['slug', 'title'])
+                    ->map(fn ($s) => ['slug' => $s->slug, 'title' => $s->title])
+                    ->values()
+                    ->all()
+            ),
 
             'flash' => fn () => [
                 'success' => $request->session()->get('success'),

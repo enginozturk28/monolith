@@ -1,71 +1,135 @@
 import { Head, usePage } from '@inertiajs/react';
+import { ArrowRight } from 'lucide-react';
+import MainLayout from '@/Layouts/MainLayout';
+import Section from '@/Components/Layout/Section';
+import FadeIn from '@/Components/Motion/FadeIn';
 import type { SharedProps } from '@/types/global';
 
 export default function Welcome() {
-    const { site, theme } = usePage<SharedProps>().props;
+    const { site } = usePage<SharedProps>().props;
 
     return (
-        <>
-            <Head title="Hoş geldiniz" />
+        <MainLayout>
+            <Head title="Ana Sayfa" />
 
-            <main className="min-h-dvh bg-bg text-text">
-                <div className="mx-auto max-w-3xl px-6 py-24 sm:py-32">
-                    <p className="text-xs uppercase tracking-[0.2em] text-text-muted">
-                        Monolith · İskelet doğrulama
-                    </p>
+            {/* Hero — geçici placeholder, Faz 5'te asıl Home component'i ile değişecek */}
+            <Section size="wide" className="pt-20 pb-24 sm:pt-28 sm:pb-32 lg:pt-32 lg:pb-40">
+                <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+                    <div className="lg:col-span-8">
+                        <FadeIn delay={0}>
+                            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-text-muted">
+                                İstanbul · Kadıköy
+                            </p>
+                        </FadeIn>
 
-                    <h1 className="mt-6 font-heading text-5xl leading-[1.1] sm:text-6xl">
-                        {site.name}
-                    </h1>
+                        <FadeIn delay={0.1}>
+                            <h1
+                                className="mt-6 max-w-3xl text-balance text-5xl leading-[1.05] text-text sm:text-6xl lg:text-7xl"
+                                style={{ fontFamily: 'var(--font-heading)', fontWeight: 500 }}
+                            >
+                                Hukuki süreçlerinizde{' '}
+                                <span style={{ color: 'var(--color-accent)' }}>güvenilir</span>{' '}
+                                ve çözüm odaklı bir destek.
+                            </h1>
+                        </FadeIn>
 
-                    {site.tagline && (
-                        <p className="mt-6 max-w-xl text-lg text-text-muted">
-                            {site.tagline}
-                        </p>
-                    )}
+                        <FadeIn delay={0.2}>
+                            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-text-muted">
+                                {site.name ?? 'Loğoğlu Hukuk Bürosu'}, bireysel ve kurumsal
+                                müvekkillerine etik ve şeffaf bir anlayışla hukuki danışmanlık
+                                ve dava takibi hizmeti sunar. Her dosyayı titizlikle değerlendirir,
+                                güncel mevzuat ve içtihat analizleri ışığında süreçleri yönetiriz.
+                            </p>
+                        </FadeIn>
 
-                    <div className="mt-12 grid gap-6 sm:grid-cols-2">
-                        <div className="rounded-lg border border-border bg-surface p-6">
-                            <h2 className="font-heading text-xl">Backend</h2>
-                            <ul className="mt-3 space-y-1 text-sm text-text-muted">
-                                <li>Laravel 13 · PHP 8.4</li>
-                                <li>Filament v5 · MySQL 8.4</li>
-                                <li>Inertia v3</li>
-                            </ul>
-                        </div>
-
-                        <div className="rounded-lg border border-border bg-surface p-6">
-                            <h2 className="font-heading text-xl">Frontend</h2>
-                            <ul className="mt-3 space-y-1 text-sm text-text-muted">
-                                <li>React 19 · TypeScript 6</li>
-                                <li>Tailwind CSS 4 · Vite 8</li>
-                                <li>Motion 12 · Lenis</li>
-                            </ul>
-                        </div>
+                        <FadeIn delay={0.3}>
+                            <div className="mt-10 flex flex-wrap items-center gap-4">
+                                <a
+                                    href="/iletisim"
+                                    className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-3 text-sm font-medium text-primary-fg transition-opacity hover:opacity-90"
+                                >
+                                    Görüşme Talebi
+                                    <ArrowRight className="h-4 w-4" />
+                                </a>
+                                <a
+                                    href="/faaliyet-alanlari"
+                                    className="inline-flex items-center gap-2 rounded-md border border-border px-5 py-3 text-sm font-medium text-text transition-colors hover:bg-surface"
+                                >
+                                    Faaliyet Alanları
+                                </a>
+                            </div>
+                        </FadeIn>
                     </div>
 
-                    <div className="mt-12 flex items-center gap-2 border-t border-border pt-8">
-                        <span
-                            className="inline-block h-3 w-3 rounded-full"
-                            style={{ backgroundColor: theme.primary ?? '#0B1F3A' }}
-                            aria-hidden
-                        />
-                        <span
-                            className="inline-block h-3 w-3 rounded-full"
-                            style={{ backgroundColor: theme.accent ?? '#A88A55' }}
-                            aria-hidden
-                        />
-                        <span
-                            className="inline-block h-3 w-3 rounded-full border border-border"
-                            style={{ backgroundColor: theme.bg ?? '#F5F1EA' }}
-                            aria-hidden
-                        />
-                        <p className="ml-3 text-xs text-text-muted">
-                            Dinamik tema sistemi aktif — admin panelden değiştirilebilir.
-                        </p>
+                    {/* Sağ kolon — ince dikey vurgu */}
+                    <div className="hidden lg:col-span-4 lg:block">
+                        <FadeIn direction="left" delay={0.2}>
+                            <div
+                                className="h-full rounded-lg border border-border bg-surface p-8"
+                                style={{ minHeight: '320px' }}
+                            >
+                                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-text-muted">
+                                    Kurucu Avukat
+                                </p>
+                                <h2
+                                    className="mt-4 text-2xl leading-tight text-text"
+                                    style={{ fontFamily: 'var(--font-heading)', fontWeight: 500 }}
+                                >
+                                    Ethem Kaan Loğoğlu
+                                </h2>
+                                <p className="mt-4 text-sm leading-relaxed text-text-muted">
+                                    2023 yılında Atılım Üniversitesi Hukuk Fakültesi'nden mezun oldum.
+                                    Stajyer avukatlık sürecimi tamamladıktan sonra büromuzu kurarak
+                                    aktif olarak avukatlık yapmaktayım.
+                                </p>
+                                <div className="mt-8 border-t border-border pt-6">
+                                    <p className="text-xs text-text-muted">
+                                        Kuruluş <span className="text-text">2024</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </FadeIn>
                     </div>
                 </div>
-            </main>
-        </>
+            </Section>
+
+            {/* Alt bilgi bandı — küçük bir teaser */}
+            <Section tone="surface" size="wide" className="border-t border-border py-16">
+                <div className="grid gap-8 sm:grid-cols-3">
+                    <FadeIn delay={0}>
+                        <div>
+                            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-text-muted">
+                                01 — Değerlendirme
+                            </p>
+                            <p className="mt-3 text-sm leading-relaxed text-text">
+                                Her dosya detaylı bir hukuki durum analizi ile ele alınır.
+                            </p>
+                        </div>
+                    </FadeIn>
+                    <FadeIn delay={0.1}>
+                        <div>
+                            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-text-muted">
+                                02 — Yönlendirme
+                            </p>
+                            <p className="mt-3 text-sm leading-relaxed text-text">
+                                Müvekkile süreç, olası senaryolar ve maliyet hakkında şeffaf
+                                bilgi verilir.
+                            </p>
+                        </div>
+                    </FadeIn>
+                    <FadeIn delay={0.2}>
+                        <div>
+                            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-text-muted">
+                                03 — Takip
+                            </p>
+                            <p className="mt-3 text-sm leading-relaxed text-text">
+                                Dosyanın her aşaması düzenli olarak raporlanır ve iletişim
+                                sürdürülür.
+                            </p>
+                        </div>
+                    </FadeIn>
+                </div>
+            </Section>
+        </MainLayout>
     );
 }
