@@ -2,7 +2,10 @@
 
 namespace App\Support;
 
+use App\Models\Setting;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Schema;
+use Throwable;
 
 /*
  * ThemeManager — dinamik tema sistemi merkezi.
@@ -37,8 +40,21 @@ class ThemeManager
     public function tokens(): array
     {
         return Cache::rememberForever('monolith.theme', function (): array {
-            // Faz 1'de Setting::where('group', 'theme')->pluck('value', 'key') buraya gelecek
-            return config('monolith.theme', []);
+            $config = config('monolith.theme', []);
+
+            try {
+                if (! Schema::hasTable('settings')) {
+                    return $config;
+                }
+
+                $dbValues = collect(Setting::allGrouped()['theme'] ?? [])
+                    ->filter(fn ($v) => $v !== null && $v !== '')
+                    ->all();
+
+                return array_merge($config, $dbValues);
+            } catch (Throwable) {
+                return $config;
+            }
         });
     }
 

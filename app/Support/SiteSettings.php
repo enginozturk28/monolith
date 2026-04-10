@@ -2,14 +2,17 @@
 
 namespace App\Support;
 
+use App\Models\Setting;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Schema;
+use Throwable;
 
 /*
  * SiteSettings — site genel bilgileri için tek erişim noktası.
  *
- * Önce DB'deki `settings` tablosunu okur (Filament panelinden yönetilen
- * gerçek değerler). Tablo yoksa veya değer eksikse `config/monolith.php`
- * fallback'ine düşer. Faz 1'de Setting modeli geldiğinde DB okuması aktif olur.
+ * Önce DB'deki `settings` tablosundan okur (Filament panelinden yönetilen
+ * gerçek değerler). Tablo henüz yoksa veya DB erişimi yoksa `config/monolith.php`
+ * fallback'ine düşer (ilk kurulum, test, staging'e devir aşamaları için).
  */
 class SiteSettings
 {
@@ -19,9 +22,22 @@ class SiteSettings
     public function all(): array
     {
         return Cache::rememberForever('monolith.site_settings', function (): array {
-            // Faz 1'de Setting::pluck('value', 'key')->where('group', 'site') buraya gelecek.
-            // Şimdilik sadece config'ten okuyoruz — interface stable kalır, implementation değişir.
-            return config('monolith.site', []);
+            $config = config('monolith.site', []);
+
+            try {
+                if (! Schema::hasTable('settings')) {
+                    return $config;
+                }
+
+                $dbValues = collect(Setting::allGrouped()['site'] ?? [])
+                    ->filter(fn ($v) => $v !== null && $v !== '')
+                    ->all();
+
+                // DB değerleri config üzerine binerek override eder
+                return array_merge($config, $dbValues);
+            } catch (Throwable) {
+                return $config;
+            }
         });
     }
 
