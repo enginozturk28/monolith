@@ -1,5 +1,5 @@
 <x-filament-panels::page>
-    <x-filament-panels::form wire:submit="save">
+    <form wire:submit="save" class="fi-form grid gap-y-6">
         {{ $this->form }}
 
         {{-- Canlı WCAG kontrast raporu --}}
@@ -8,33 +8,33 @@
         @endphp
 
         @if (count(array_filter($report, fn ($r) => $r['ratio'] > 0)))
-            <div class="fi-section rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-950/5">
+            <section class="fi-section rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10">
                 <div class="mb-4 flex items-center gap-2">
-                    <x-heroicon-o-eye class="h-5 w-5 text-gray-500" />
-                    <h3 class="text-base font-semibold text-gray-950">
+                    <x-filament::icon icon="heroicon-o-eye" class="h-5 w-5 text-gray-500" />
+                    <h3 class="text-base font-semibold text-gray-950 dark:text-white">
                         Erişilebilirlik / Kontrast Kontrolü
                     </h3>
                 </div>
-                <p class="mb-4 text-sm text-gray-500">
+                <p class="mb-4 text-sm text-gray-500 dark:text-gray-400">
                     WCAG AA standardı normal metin için <strong>4.5:1</strong> kontrast oranı gerektirir.
                     Aşağıdaki oranların yeşil olması tavsiye edilir; kırmızı olan kombinasyonlar okunurluk sorunu yaratabilir.
                 </p>
                 <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
                     @foreach ($report as $key => $item)
-                        <div class="flex items-center justify-between rounded-lg border border-gray-200 p-4">
+                        <div class="flex items-center justify-between rounded-lg border border-gray-200 p-4 dark:border-gray-700">
                             <div class="flex-1">
-                                <p class="text-sm font-medium text-gray-950">{{ $item['label'] }}</p>
-                                <p class="mt-1 text-xs text-gray-500">Oran: {{ $item['ratio'] }}:1</p>
+                                <p class="text-sm font-medium text-gray-950 dark:text-white">{{ $item['label'] }}</p>
+                                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Oran: {{ $item['ratio'] }}:1</p>
                             </div>
                             <div>
                                 @if ($item['pass'])
-                                    <span class="inline-flex items-center gap-1 rounded-full bg-green-50 px-3 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20">
-                                        <x-heroicon-s-check-circle class="h-4 w-4" />
+                                    <span class="inline-flex items-center gap-1 rounded-full bg-green-50 px-3 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 dark:bg-green-400/10 dark:text-green-400 dark:ring-green-400/30">
+                                        <x-filament::icon icon="heroicon-s-check-circle" class="h-4 w-4" />
                                         Geçer
                                     </span>
                                 @else
-                                    <span class="inline-flex items-center gap-1 rounded-full bg-red-50 px-3 py-1 text-xs font-medium text-red-700 ring-1 ring-red-600/20">
-                                        <x-heroicon-s-exclamation-triangle class="h-4 w-4" />
+                                    <span class="inline-flex items-center gap-1 rounded-full bg-red-50 px-3 py-1 text-xs font-medium text-red-700 ring-1 ring-red-600/20 dark:bg-red-400/10 dark:text-red-400 dark:ring-red-400/30">
+                                        <x-filament::icon icon="heroicon-s-exclamation-triangle" class="h-4 w-4" />
                                         Zayıf
                                     </span>
                                 @endif
@@ -42,7 +42,7 @@
                         </div>
                     @endforeach
                 </div>
-            </div>
+            </section>
         @endif
 
         {{-- Canlı mini önizleme --}}
@@ -50,12 +50,12 @@
             $d = $this->data ?? [];
         @endphp
 
-        <div class="fi-section rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-950/5">
+        <section class="fi-section rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-950/5 dark:bg-gray-900 dark:ring-white/10">
             <div class="mb-4 flex items-center gap-2">
-                <x-heroicon-o-swatch class="h-5 w-5 text-gray-500" />
-                <h3 class="text-base font-semibold text-gray-950">Canlı Önizleme</h3>
+                <x-filament::icon icon="heroicon-o-swatch" class="h-5 w-5 text-gray-500" />
+                <h3 class="text-base font-semibold text-gray-950 dark:text-white">Canlı Önizleme</h3>
             </div>
-            <p class="mb-4 text-sm text-gray-500">
+            <p class="mb-4 text-sm text-gray-500 dark:text-gray-400">
                 Bu kutu, seçtiğiniz tema renklerinin ön yüzde nasıl görüneceğini kabaca simüle eder.
                 Değişiklikleri kalıcı hale getirmek için sayfanın üst kısmındaki "Kaydet" butonuna basınız.
             </p>
@@ -93,6 +93,6 @@
                     </p>
                 </div>
             </div>
-        </div>
-    </x-filament-panels::form>
+        </section>
+    </form>
 </x-filament-panels::page>
