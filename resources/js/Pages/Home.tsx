@@ -152,15 +152,6 @@ export default function Home({ services, articles }: Props) {
                         </div>
                     </div>
 
-                    {/* Görsel atıf — sağ alta küçük ve sade */}
-                    {site.hero_image_credit && (
-                        <p
-                            className="absolute bottom-4 right-6 text-[10px] text-text-muted/60"
-                            aria-hidden
-                        >
-                            {site.hero_image_credit}
-                        </p>
-                    )}
                 </Container>
             </div>
 
