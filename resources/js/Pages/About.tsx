@@ -26,20 +26,35 @@ export default function About({ vision, mission }: Props) {
 
             {/* Büro tanımı */}
             <Section size="wide">
-                <div className="grid gap-16 lg:grid-cols-12 lg:gap-20">
-                    <div className="lg:col-span-5">
-                        <FadeIn>
-                            <h2
-                                className="text-3xl leading-tight text-text sm:text-4xl"
-                                style={{ fontFamily: 'var(--font-heading)', fontWeight: 500 }}
-                            >
-                                Butik bir hukuk bürosu
-                            </h2>
-                        </FadeIn>
-                    </div>
-                    <div className="lg:col-span-7">
+                <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+                    {/* Sol: mimari görsel — uzun dikey formatta kırpılır */}
+                    {site.about_image_path && (
+                        <div className="lg:col-span-5">
+                            <FadeIn>
+                                <div className="overflow-hidden rounded-lg border border-border bg-surface-alt">
+                                    <img
+                                        src={site.about_image_path}
+                                        alt=""
+                                        aria-hidden
+                                        loading="lazy"
+                                        className="h-full w-full object-cover"
+                                        style={{ aspectRatio: '4 / 5', minHeight: '480px' }}
+                                    />
+                                </div>
+                            </FadeIn>
+                        </div>
+                    )}
+
+                    {/* Sağ: büro tanıtım metni */}
+                    <div
+                        className={
+                            site.about_image_path
+                                ? 'lg:col-span-7'
+                                : 'lg:col-span-12'
+                        }
+                    >
                         <FadeIn delay={0.1}>
-                            <div className="space-y-6 text-base leading-relaxed text-text-muted">
+                            <div className="space-y-6 text-base leading-relaxed text-text-muted lg:text-lg">
                                 <p>
                                     2024 yılında Avukat Ethem Kaan Loğoğlu tarafından kurulan
                                     Loğoğlu Hukuk Bürosu, bireysel ve kurumsal müvekkillerine
