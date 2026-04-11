@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { ArrowLeft, Clock, User } from 'lucide-react';
 import MainLayout from '@/Layouts/MainLayout';
 import Container from '@/Components/Layout/Container';
@@ -6,6 +6,7 @@ import Section from '@/Components/Layout/Section';
 import RichTextContent from '@/Components/Content/RichTextContent';
 import ArticleCard from '@/Components/Content/ArticleCard';
 import FadeIn from '@/Components/Motion/FadeIn';
+import SeoHead from '@/Components/Seo/SeoHead';
 
 type Article = {
     slug: string;
@@ -45,13 +46,36 @@ export default function ArticleShow({ article, related }: Props) {
         ? DATE_FORMAT.format(new Date(article.published_at))
         : null;
 
+    // schema.org Article structured data
+    const articleJsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: article.title,
+        description: article.excerpt,
+        datePublished: article.published_at,
+        author: article.author
+            ? {
+                  '@type': 'Person',
+                  name: article.author.name,
+              }
+            : undefined,
+        publisher: {
+            '@type': 'LegalService',
+            name: 'Loğoğlu Hukuk Bürosu',
+        },
+        articleSection: article.category?.name,
+    };
+
     return (
         <MainLayout>
-            <Head title={article.meta_title ?? article.title}>
-                {article.meta_description && (
-                    <meta name="description" content={article.meta_description} />
-                )}
-            </Head>
+            <SeoHead
+                title={article.meta_title ?? article.title}
+                description={article.meta_description ?? article.excerpt ?? undefined}
+                type="article"
+                publishedTime={article.published_at}
+                author={article.author?.name}
+                jsonLd={articleJsonLd}
+            />
 
             {/* Başlık */}
             <header className="border-b border-border bg-surface-alt">

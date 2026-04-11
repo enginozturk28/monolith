@@ -1,10 +1,11 @@
-import { Head, usePage } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 import MainLayout from '@/Layouts/MainLayout';
 import Container from '@/Components/Layout/Container';
 import Section from '@/Components/Layout/Section';
 import PageHeader from '@/Components/Layout/PageHeader';
 import RichTextContent from '@/Components/Content/RichTextContent';
 import FadeIn from '@/Components/Motion/FadeIn';
+import SeoHead from '@/Components/Seo/SeoHead';
 import type { SharedProps } from '@/types/global';
 
 type Props = {
@@ -17,7 +18,11 @@ export default function About({ vision, mission }: Props) {
 
     return (
         <MainLayout>
-            <Head title="Hakkımızda" />
+            <SeoHead
+                title="Hakkımızda"
+                description={`2024 yılında kurulan ${site.name ?? 'Loğoğlu Hukuk Bürosu'}, İstanbul merkezli olarak tüm Türkiye'ye yayılmış bir hizmet anlayışıyla bireysel ve kurumsal müvekkillere etik hukuki destek sunmaktadır.`}
+                image={site.about_image_path}
+            />
 
             <PageHeader
                 title="Bireysel ve kurumsal müvekkillere etik hukuki destek"

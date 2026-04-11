@@ -1,4 +1,4 @@
-import { Head, Link, usePage } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { ArrowRight, MapPin, Phone } from 'lucide-react';
 import MainLayout from '@/Layouts/MainLayout';
 import Container from '@/Components/Layout/Container';
@@ -6,6 +6,7 @@ import Section from '@/Components/Layout/Section';
 import FadeIn from '@/Components/Motion/FadeIn';
 import ServiceCard from '@/Components/Content/ServiceCard';
 import ArticleCard from '@/Components/Content/ArticleCard';
+import SeoHead from '@/Components/Seo/SeoHead';
 import type { SharedProps } from '@/types/global';
 
 type Service = {
@@ -35,7 +36,10 @@ export default function Home({ services, articles }: Props) {
 
     return (
         <MainLayout>
-            <Head title="Ana Sayfa" />
+            <SeoHead
+                title="Ana Sayfa"
+                description={site.tagline ?? `${site.name ?? 'Loğoğlu Hukuk Bürosu'}, bireysel ve kurumsal müvekkillere etik ve şeffaf bir anlayışla hukuki danışmanlık ve dava takibi hizmeti sunar.`}
+            />
 
             {/* HERO — arka planda ofis görseli, üzerinde sade bir okunabilirlik katmanı */}
             <div className="relative isolate overflow-hidden bg-bg">

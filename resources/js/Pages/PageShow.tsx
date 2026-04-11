@@ -1,9 +1,9 @@
-import { Head } from '@inertiajs/react';
 import MainLayout from '@/Layouts/MainLayout';
 import Container from '@/Components/Layout/Container';
 import Section from '@/Components/Layout/Section';
 import RichTextContent from '@/Components/Content/RichTextContent';
 import FadeIn from '@/Components/Motion/FadeIn';
+import SeoHead from '@/Components/Seo/SeoHead';
 
 type Props = {
     page: {
@@ -29,11 +29,10 @@ export default function PageShow({ page }: Props) {
 
     return (
         <MainLayout>
-            <Head title={page.meta_title ?? page.title}>
-                {page.meta_description && (
-                    <meta name="description" content={page.meta_description} />
-                )}
-            </Head>
+            <SeoHead
+                title={page.meta_title ?? page.title}
+                description={page.meta_description ?? undefined}
+            />
 
             <header className="border-b border-border bg-surface-alt">
                 <Container size="narrow" className="py-16 sm:py-20 lg:py-24">

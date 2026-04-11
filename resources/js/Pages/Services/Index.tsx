@@ -1,9 +1,9 @@
-import { Head } from '@inertiajs/react';
 import MainLayout from '@/Layouts/MainLayout';
 import Section from '@/Components/Layout/Section';
 import PageHeader from '@/Components/Layout/PageHeader';
 import ServiceCard from '@/Components/Content/ServiceCard';
 import FadeIn from '@/Components/Motion/FadeIn';
+import SeoHead from '@/Components/Seo/SeoHead';
 
 type Service = {
     slug: string;
@@ -19,7 +19,10 @@ type Props = {
 export default function ServicesIndex({ services }: Props) {
     return (
         <MainLayout>
-            <Head title="Faaliyet Alanları" />
+            <SeoHead
+                title="Faaliyet Alanları"
+                description="Ceza, Aile, Miras, Marka & Patent, Gayrimenkul, Vergi, İş, Ticaret ve daha fazlası — hukukun farklı alanlarında bireysel ve kurumsal müvekkillere profesyonel destek."
+            />
 
             <PageHeader
                 title="Faaliyet Alanları"

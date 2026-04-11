@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Head } from '@inertiajs/react';
 import { ChevronDown } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import MainLayout from '@/Layouts/MainLayout';
@@ -8,6 +7,7 @@ import Section from '@/Components/Layout/Section';
 import PageHeader from '@/Components/Layout/PageHeader';
 import RichTextContent from '@/Components/Content/RichTextContent';
 import FadeIn from '@/Components/Motion/FadeIn';
+import SeoHead from '@/Components/Seo/SeoHead';
 import { cn } from '@/lib/utils';
 
 type Faq = {
@@ -35,9 +35,29 @@ export default function FaqPage({ categories }: Props) {
         setOpen((prev) => ({ ...prev, [id]: !prev[id] }));
     };
 
+    // schema.org FAQPage structured data — tüm soru/cevap çiftleri
+    const faqJsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: categories.flatMap((cat) =>
+            cat.faqs.map((f) => ({
+                '@type': 'Question',
+                name: f.question,
+                acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: f.answer.replace(/<[^>]*>/g, ''), // strip HTML tags
+                },
+            })),
+        ),
+    };
+
     return (
         <MainLayout>
-            <Head title="Sıkça Sorulan Sorular" />
+            <SeoHead
+                title="Sıkça Sorulan Sorular"
+                description="Hukuki süreçler, vekâlet ücretleri ve dava süreçleri hakkında sıkça sorulan sorulara verdiğimiz yanıtlar."
+                jsonLd={faqJsonLd}
+            />
 
             <PageHeader
                 title="Sıkça Sorulan Sorular"

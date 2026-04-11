@@ -1,10 +1,11 @@
-import { Head, Link, router } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import MainLayout from '@/Layouts/MainLayout';
 import Section from '@/Components/Layout/Section';
 import PageHeader from '@/Components/Layout/PageHeader';
 import ArticleCard from '@/Components/Content/ArticleCard';
 import FadeIn from '@/Components/Motion/FadeIn';
+import SeoHead from '@/Components/Seo/SeoHead';
 import { cn } from '@/lib/utils';
 
 type Article = {
@@ -46,7 +47,10 @@ export default function ArticlesIndex({ articles, categories, currentCategory }:
 
     return (
         <MainLayout>
-            <Head title="Makaleler" />
+            <SeoHead
+                title="Makaleler"
+                description="Güncel hukuki gelişmeler ve değerlendirmeler. Loğoğlu Hukuk Bürosu yazılarımız bilgi paylaşımı amacıyla hazırlanmıştır."
+            />
 
             <PageHeader
                 title="Makaleler"

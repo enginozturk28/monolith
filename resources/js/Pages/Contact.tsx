@@ -1,11 +1,12 @@
 import { type FormEvent, useEffect, useRef } from 'react';
-import { Head, useForm, usePage } from '@inertiajs/react';
+import { useForm, usePage } from '@inertiajs/react';
 import { CheckCircle2, Mail, MapPin, Phone } from 'lucide-react';
 import MainLayout from '@/Layouts/MainLayout';
 import Container from '@/Components/Layout/Container';
 import Section from '@/Components/Layout/Section';
 import PageHeader from '@/Components/Layout/PageHeader';
 import FadeIn from '@/Components/Motion/FadeIn';
+import SeoHead from '@/Components/Seo/SeoHead';
 import { cn } from '@/lib/utils';
 import type { SharedProps } from '@/types/global';
 
@@ -92,7 +93,10 @@ export default function Contact() {
 
     return (
         <MainLayout>
-            <Head title="İletişim" />
+            <SeoHead
+                title="İletişim"
+                description={`${site.name ?? 'Loğoğlu Hukuk Bürosu'} ile iletişime geçmek için form, telefon, e-posta veya KEP adresimizi kullanabilirsiniz. ${site.address ?? ''}`}
+            />
 
             <PageHeader
                 title="İletişim"

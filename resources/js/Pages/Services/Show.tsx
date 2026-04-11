@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import MainLayout from '@/Layouts/MainLayout';
 import Container from '@/Components/Layout/Container';
@@ -6,6 +6,7 @@ import Section from '@/Components/Layout/Section';
 import RichTextContent from '@/Components/Content/RichTextContent';
 import ServiceIcon from '@/Components/Content/ServiceIcon';
 import FadeIn from '@/Components/Motion/FadeIn';
+import SeoHead from '@/Components/Seo/SeoHead';
 
 type Service = {
     slug: string;
@@ -29,13 +30,29 @@ type Props = {
 };
 
 export default function ServiceShow({ service, related }: Props) {
+    // schema.org Service structured data
+    const serviceJsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        name: service.title,
+        description: service.summary,
+        provider: {
+            '@type': 'LegalService',
+            name: 'Loğoğlu Hukuk Bürosu',
+        },
+        areaServed: {
+            '@type': 'Country',
+            name: 'Türkiye',
+        },
+    };
+
     return (
         <MainLayout>
-            <Head title={service.meta_title ?? service.title}>
-                {service.meta_description && (
-                    <meta name="description" content={service.meta_description} />
-                )}
-            </Head>
+            <SeoHead
+                title={service.meta_title ?? service.title}
+                description={service.meta_description ?? service.summary ?? undefined}
+                jsonLd={serviceJsonLd}
+            />
 
             {/* Başlık bloğu */}
             <header className="border-b border-border bg-surface-alt">
