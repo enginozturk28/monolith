@@ -41,13 +41,38 @@ class MonolithSeeder extends Seeder
      |------------------------------------------------------------------ */
     private function seedSettings(): void
     {
+        // Footer açıklama ve about intro için default zengin metinler
+        $footerDescriptionDefault = '2024 yılında kurulan Loğoğlu Hukuk Bürosu, bireysel ve kurumsal müvekkillerine güvenilir, etik ve çözüm odaklı hukuki hizmetler sunmayı amaçlamaktadır.';
+
+        $aboutIntroBodyDefault = <<<'HTML'
+<p>2024 yılında Avukat Ethem Kaan Loğoğlu tarafından kurulan Loğoğlu Hukuk Bürosu, bireysel ve kurumsal müvekkillerine güvenilir, etik ve çözüm odaklı hukuki hizmetler sunmayı amaçlamaktadır.</p>
+<p>İstanbul merkezli olan büromuz, yalnızca şehir içinde değil, tüm Türkiye'ye yayılmış bir hizmet anlayışıyla hukukun farklı alanlarında profesyonel destek sağlamaktadır. Her dosyayı detaylı bir analizle ele alıyor; şeffaf, anlaşılır ve çözüm odaklı bir yaklaşım benimsiyoruz.</p>
+<p>Hukukun karmaşıklığı içinde yalnızca teknik bilgiye değil, aynı zamanda güçlü bir iletişim ve güven ilişkisine de önem veriyoruz.</p>
+HTML;
+
+        $founderBioDefault = <<<'HTML'
+<p>2023 yılında Atılım Üniversitesi Hukuk Fakültesi'nden mezun oldum. Stajyer avukatlık sürecimi tamamladıktan sonra, Loğoğlu Hukuk Bürosu'nu kurarak aktif olarak avukatlık yapmaktayım.</p>
+<p>Akademik bilgi birikimimi pratik uygulamalarla harmanlayarak mevzuat ve içtihat analizi odaklı çalışmalar yürütüyorum. Amacım, müvekkillerime güvenilir ve etkili çözümler sunmaktır.</p>
+HTML;
+
         $site = [
+            // Kimlik
             ['key' => 'name', 'value' => 'Loğoğlu Hukuk Bürosu', 'type' => 'text', 'label' => 'Büro Adı'],
             ['key' => 'tagline', 'value' => 'Hukukun farklı alanlarında profesyonel destek', 'type' => 'text', 'label' => 'Slogan'],
+            ['key' => 'footer_description', 'value' => $footerDescriptionDefault, 'type' => 'textarea', 'label' => 'Footer Açıklama'],
+            ['key' => 'copyright_text', 'value' => 'Tüm hakları saklıdır.', 'type' => 'text', 'label' => 'Copyright Metni (yıl otomatik eklenir)'],
+
+            // Logo ve görseller
+            ['key' => 'logo_url', 'value' => null, 'type' => 'image', 'label' => 'Logo'],
+            ['key' => 'hero_image_path', 'value' => null, 'type' => 'image', 'label' => 'Anasayfa Hero Görseli'],
+            ['key' => 'hero_image_credit', 'value' => null, 'type' => 'text', 'label' => 'Hero Görsel Atıf'],
+            ['key' => 'about_image_path', 'value' => null, 'type' => 'image', 'label' => 'Hakkımızda Görseli'],
+            ['key' => 'about_image_credit', 'value' => null, 'type' => 'text', 'label' => 'Hakkımızda Görsel Atıf'],
+
+            // İletişim
             ['key' => 'phone', 'value' => '+90 553 647 38 22', 'type' => 'text', 'label' => 'Telefon'],
             ['key' => 'email', 'value' => 'ethemlogoglu@gmail.com', 'type' => 'text', 'label' => 'E-posta'],
             ['key' => 'kep', 'value' => 'ethemkaan.logoglu@hs01.kep.tr', 'type' => 'text', 'label' => 'KEP Adresi'],
-            ['key' => 'linkedin_url', 'value' => 'https://www.linkedin.com/in/ethemlogoglu/', 'type' => 'text', 'label' => 'LinkedIn URL'],
             ['key' => 'address', 'value' => 'Fenerbahçe Mahallesi, Itri Dede Sokak No:22/7 Kadıköy/İstanbul', 'type' => 'textarea', 'label' => 'Adres'],
             [
                 'key' => 'map_embed_url',
@@ -55,17 +80,29 @@ class MonolithSeeder extends Seeder
                 'type' => 'textarea',
                 'label' => 'Google Maps Embed URL',
             ],
-            ['key' => 'logo_url', 'value' => null, 'type' => 'image', 'label' => 'Logo'],
-            // Görseller — monolith:fetch-images komutu ile Pixabay'den indirilir
-            ['key' => 'hero_image_path', 'value' => null, 'type' => 'image', 'label' => 'Anasayfa Hero Görseli'],
-            ['key' => 'hero_image_credit', 'value' => null, 'type' => 'text', 'label' => 'Hero Görsel Atıf'],
-            ['key' => 'about_image_path', 'value' => null, 'type' => 'image', 'label' => 'Hakkımızda Görseli'],
-            ['key' => 'about_image_credit', 'value' => null, 'type' => 'text', 'label' => 'Hakkımızda Görsel Atıf'],
+
+            // Sosyal medya
+            ['key' => 'linkedin_url', 'value' => 'https://www.linkedin.com/in/ethemlogoglu/', 'type' => 'text', 'label' => 'LinkedIn URL'],
+            ['key' => 'whatsapp_url', 'value' => null, 'type' => 'text', 'label' => 'WhatsApp URL (wa.me/...)'],
+            ['key' => 'instagram_url', 'value' => null, 'type' => 'text', 'label' => 'Instagram URL'],
+            ['key' => 'x_url', 'value' => null, 'type' => 'text', 'label' => 'X (Twitter) URL'],
+
+            // Hakkımızda içerikleri
+            ['key' => 'about_intro_body', 'value' => $aboutIntroBodyDefault, 'type' => 'textarea', 'label' => 'Hakkımızda — Büro Tanıtım Metni (HTML)'],
+            ['key' => 'founder_bio', 'value' => $founderBioDefault, 'type' => 'textarea', 'label' => 'Hakkımızda — Kurucu Avukat Biyografisi (HTML)'],
         ];
 
-        // Mevcut görsel ayarlarını koru — fetch-images komutuyla indirilen
-        // değerleri seed yeniden çalıştırıldığında sıfırlamayalım.
-        $preserveKeys = ['hero_image_path', 'hero_image_credit', 'about_image_path', 'about_image_credit'];
+        // Mevcut kullanıcı-yönetimli değerleri koru — seed yeniden çalıştırıldığında
+        // panelden yüklenmiş logo, görsel veya kullanıcının düzenlediği metinleri
+        // üzerine yazmayalım.
+        $preserveKeys = [
+            'logo_url',
+            'hero_image_path', 'hero_image_credit',
+            'about_image_path', 'about_image_credit',
+            'footer_description', 'copyright_text',
+            'about_intro_body', 'founder_bio',
+            'whatsapp_url', 'instagram_url', 'x_url',
+        ];
 
         foreach ($site as $i => $row) {
             if (in_array($row['key'], $preserveKeys, true)) {

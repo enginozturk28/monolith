@@ -56,19 +56,35 @@ class SiteSettings
         $data = $this->all();
 
         return [
+            // Kimlik
             'name' => $data['name'] ?? null,
             'tagline' => $data['tagline'] ?? null,
+            'footer_description' => $data['footer_description'] ?? null,
+            'copyright_text' => $data['copyright_text'] ?? null,
+
+            // İletişim
             'phone' => $data['phone'] ?? null,
             'email' => $data['email'] ?? null,
             'kep' => $data['kep'] ?? null,
             'address' => $data['address'] ?? null,
             'map_embed_url' => $data['map_embed_url'] ?? null,
+
+            // Sosyal medya
             'linkedin_url' => $data['linkedin_url'] ?? null,
+            'whatsapp_url' => $data['whatsapp_url'] ?? null,
+            'instagram_url' => $data['instagram_url'] ?? null,
+            'x_url' => $data['x_url'] ?? null,
+
+            // Görseller
             'logo_url' => $data['logo_url'] ?? null,
             'hero_image_path' => $data['hero_image_path'] ?? null,
             'hero_image_credit' => $data['hero_image_credit'] ?? null,
             'about_image_path' => $data['about_image_path'] ?? null,
             'about_image_credit' => $data['about_image_credit'] ?? null,
+
+            // İçerik blokları
+            'about_intro_body' => $data['about_intro_body'] ?? null,
+            'founder_bio' => $data['founder_bio'] ?? null,
         ];
     }
 

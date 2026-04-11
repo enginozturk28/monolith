@@ -3,19 +3,35 @@
 import type { PageProps as InertiaPageProps } from '@inertiajs/core';
 
 export interface SiteSettings {
+    // Kimlik
     name: string;
     tagline: string | null;
+    footer_description: string | null;
+    copyright_text: string | null;
+
+    // İletişim
     phone: string | null;
     email: string | null;
     kep: string | null;
     address: string | null;
     map_embed_url: string | null;
+
+    // Sosyal medya
     linkedin_url: string | null;
+    whatsapp_url: string | null;
+    instagram_url: string | null;
+    x_url: string | null;
+
+    // Görseller
     logo_url: string | null;
     hero_image_path: string | null;
     hero_image_credit: string | null;
     about_image_path: string | null;
     about_image_credit: string | null;
+
+    // İçerik blokları (HTML)
+    about_intro_body: string | null;
+    founder_bio: string | null;
 }
 
 export interface ThemeTokens {

@@ -45,7 +45,7 @@ export default function About({ vision, mission }: Props) {
                         </div>
                     )}
 
-                    {/* Sağ: büro tanıtım metni */}
+                    {/* Sağ: büro tanıtım metni — panelden RichText */}
                     <div
                         className={
                             site.about_image_path
@@ -54,26 +54,20 @@ export default function About({ vision, mission }: Props) {
                         }
                     >
                         <FadeIn delay={0.1}>
-                            <div className="space-y-6 text-base leading-relaxed text-text-muted lg:text-lg">
-                                <p>
-                                    2024 yılında Avukat Ethem Kaan Loğoğlu tarafından kurulan
-                                    Loğoğlu Hukuk Bürosu, bireysel ve kurumsal müvekkillerine
-                                    güvenilir, etik ve çözüm odaklı hukuki hizmetler sunmayı
-                                    amaçlamaktadır.
-                                </p>
-                                <p>
-                                    İstanbul merkezli olan büromuz, yalnızca şehir içinde değil,
-                                    tüm Türkiye'ye yayılmış bir hizmet anlayışıyla hukukun farklı
-                                    alanlarında profesyonel destek sağlamaktadır. Her dosyayı
-                                    detaylı bir analizle ele alıyor; şeffaf, anlaşılır ve çözüm
-                                    odaklı bir yaklaşım benimsiyoruz.
-                                </p>
-                                <p>
-                                    Hukukun karmaşıklığı içinde yalnızca teknik bilgiye değil,
-                                    aynı zamanda güçlü bir iletişim ve güven ilişkisine de önem
-                                    veriyoruz.
-                                </p>
-                            </div>
+                            {site.about_intro_body ? (
+                                <RichTextContent
+                                    html={site.about_intro_body}
+                                    className="lg:text-lg"
+                                />
+                            ) : (
+                                <div className="space-y-6 text-base leading-relaxed text-text-muted lg:text-lg">
+                                    <p>
+                                        {site.name ?? 'Loğoğlu Hukuk Bürosu'}, bireysel ve
+                                        kurumsal müvekkillerine güvenilir, etik ve çözüm odaklı
+                                        hukuki hizmetler sunmayı amaçlamaktadır.
+                                    </p>
+                                </div>
+                            )}
                         </FadeIn>
                     </div>
                 </div>
@@ -132,17 +126,14 @@ export default function About({ vision, mission }: Props) {
                     </FadeIn>
 
                     <FadeIn delay={0.1}>
-                        <div className="mt-8 space-y-6 text-base leading-relaxed text-text-muted">
-                            <p>
-                                2023 yılında Atılım Üniversitesi Hukuk Fakültesi'nden mezun oldum.
-                                Stajyer avukatlık sürecimi tamamladıktan sonra, Loğoğlu Hukuk
-                                Bürosu'nu kurarak aktif olarak avukatlık yapmaktayım.
-                            </p>
-                            <p>
-                                Akademik bilgi birikimimi pratik uygulamalarla harmanlayarak
-                                mevzuat ve içtihat analizi odaklı çalışmalar yürütüyorum. Amacım,
-                                müvekkillerime güvenilir ve etkili çözümler sunmaktır.
-                            </p>
+                        <div className="mt-8">
+                            {site.founder_bio ? (
+                                <RichTextContent html={site.founder_bio} />
+                            ) : (
+                                <p className="text-base leading-relaxed text-text-muted">
+                                    Kurucu avukat biyografisi panelden yüklenmemiş.
+                                </p>
+                            )}
                         </div>
                     </FadeIn>
                 </Container>
