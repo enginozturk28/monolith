@@ -5,6 +5,8 @@ namespace App\Providers\Filament;
 use App\Filament\Widgets\ContentStatsOverview;
 use App\Filament\Widgets\LatestArticles;
 use App\Filament\Widgets\UnreadContactMessages;
+use Filament\Auth\MultiFactor\App\AppAuthentication;
+use Filament\Auth\MultiFactor\Email\EmailAuthentication;
 use Filament\FontProviders\GoogleFontProvider;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -31,6 +33,17 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->profile(isSimple: false) // Filament built-in EditProfile sayfası
+            // Multi-Factor Authentication — TOTP (Authenticator app) + Email OTP
+            // Kullanıcı profilim sayfasından açıp kapatabilir.
+            // isRequired: false → opsiyonel, kullanıcı isterse aktif eder.
+            // Faz 4'te admin için zorunlu hale getirilebilir (true yapılır).
+            ->multiFactorAuthentication([
+                AppAuthentication::make()
+                    ->recoverable()
+                    ->recoveryCodeCount(8),
+                EmailAuthentication::make()
+                    ->codeExpiryMinutes(5),
+            ], isRequired: false)
             ->brandName('Loğoğlu Hukuk Bürosu')
             ->brandLogo(fn () => view('filament.admin.brand-logo'))
             ->favicon(asset('favicon.ico'))
