@@ -12,6 +12,10 @@ export interface SiteSettings {
     map_embed_url: string | null;
     linkedin_url: string | null;
     logo_url: string | null;
+    hero_image_path: string | null;
+    hero_image_credit: string | null;
+    about_image_path: string | null;
+    about_image_credit: string | null;
 }
 
 export interface ThemeTokens {

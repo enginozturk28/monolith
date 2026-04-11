@@ -65,6 +65,10 @@ class SiteSettings
             'map_embed_url' => $data['map_embed_url'] ?? null,
             'linkedin_url' => $data['linkedin_url'] ?? null,
             'logo_url' => $data['logo_url'] ?? null,
+            'hero_image_path' => $data['hero_image_path'] ?? null,
+            'hero_image_credit' => $data['hero_image_credit'] ?? null,
+            'about_image_path' => $data['about_image_path'] ?? null,
+            'about_image_credit' => $data['about_image_credit'] ?? null,
         ];
     }
 

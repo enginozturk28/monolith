@@ -31,38 +31,42 @@ type Props = {
 
 export default function Home({ services, articles }: Props) {
     const { site } = usePage<SharedProps>().props;
+    const heroImage = site.hero_image_path;
 
     return (
         <MainLayout>
             <Head title="Ana Sayfa" />
 
-            {/* HERO */}
-            <div className="relative overflow-hidden bg-bg">
-                {/* Arkaplan: sakin gradient + ince grid deseni */}
-                <div
-                    className="pointer-events-none absolute inset-0 opacity-[0.04]"
-                    style={{
-                        backgroundImage: 'linear-gradient(var(--color-text) 1px, transparent 1px), linear-gradient(90deg, var(--color-text) 1px, transparent 1px)',
-                        backgroundSize: '56px 56px',
-                    }}
-                    aria-hidden
-                />
-                <Container size="wide" className="relative py-20 sm:py-28 lg:py-36">
+            {/* HERO — arka planda ofis görseli, üzerinde sade bir okunabilirlik katmanı */}
+            <div className="relative isolate overflow-hidden bg-bg">
+                {heroImage && (
+                    <>
+                        <img
+                            src={heroImage}
+                            alt=""
+                            aria-hidden
+                            className="absolute inset-0 -z-10 h-full w-full object-cover"
+                            fetchPriority="high"
+                            loading="eager"
+                        />
+                        {/* Düz bir okunabilirlik katmanı — gradyan değil. */}
+                        <div
+                            aria-hidden
+                            className="absolute inset-0 -z-10"
+                            style={{
+                                backgroundColor: 'var(--color-bg)',
+                                opacity: 0.78,
+                            }}
+                        />
+                    </>
+                )}
+
+                <Container size="wide" className="relative py-24 sm:py-32 lg:py-40">
                     <div className="grid gap-16 lg:grid-cols-12 lg:gap-20">
                         <div className="lg:col-span-8">
                             <FadeIn>
-                                <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-text-muted">
-                                    <span
-                                        className="inline-block h-px w-8"
-                                        style={{ backgroundColor: 'var(--color-accent)' }}
-                                    />
-                                    İstanbul · Kadıköy
-                                </p>
-                            </FadeIn>
-
-                            <FadeIn delay={0.08}>
                                 <h1
-                                    className="mt-8 max-w-4xl text-balance text-5xl leading-[1.02] text-text sm:text-6xl lg:text-7xl"
+                                    className="max-w-4xl text-balance text-5xl leading-[1.02] text-text sm:text-6xl lg:text-7xl"
                                     style={{ fontFamily: 'var(--font-heading)', fontWeight: 500 }}
                                 >
                                     Hukuki süreçlerinizde{' '}
@@ -73,7 +77,7 @@ export default function Home({ services, articles }: Props) {
                                 </h1>
                             </FadeIn>
 
-                            <FadeIn delay={0.15}>
+                            <FadeIn delay={0.1}>
                                 <p className="mt-10 max-w-2xl text-lg leading-relaxed text-text-muted sm:text-xl">
                                     {site.name ?? 'Loğoğlu Hukuk Bürosu'}, bireysel ve kurumsal
                                     müvekkillerine etik ve şeffaf bir anlayışla hukuki danışmanlık
@@ -82,7 +86,7 @@ export default function Home({ services, articles }: Props) {
                                 </p>
                             </FadeIn>
 
-                            <FadeIn delay={0.22}>
+                            <FadeIn delay={0.18}>
                                 <div className="mt-12 flex flex-wrap items-center gap-4">
                                     <Link
                                         href="/iletisim"
@@ -93,7 +97,7 @@ export default function Home({ services, articles }: Props) {
                                     </Link>
                                     <Link
                                         href="/faaliyet-alanlari"
-                                        className="inline-flex items-center gap-2 rounded-md border border-border px-6 py-3.5 text-sm font-medium text-text transition-colors hover:bg-surface"
+                                        className="inline-flex items-center gap-2 rounded-md border border-border bg-bg/80 px-6 py-3.5 text-sm font-medium text-text backdrop-blur-sm transition-colors hover:bg-surface"
                                     >
                                         Faaliyet Alanları
                                     </Link>
@@ -101,20 +105,18 @@ export default function Home({ services, articles }: Props) {
                             </FadeIn>
                         </div>
 
-                        {/* Sağ kolon: kurucu kart */}
+                        {/* Sağ kolon: kurucu özet kart */}
                         <div className="hidden lg:col-span-4 lg:block">
-                            <FadeIn direction="left" delay={0.2}>
-                                <div className="flex h-full flex-col rounded-lg border border-border bg-surface p-8">
-                                    <p className="text-xs font-semibold uppercase tracking-[0.14em] text-text-muted">
-                                        Kurucu Avukat
-                                    </p>
+                            <FadeIn direction="left" delay={0.15}>
+                                <div className="flex h-full flex-col rounded-lg border border-border bg-surface/95 p-8 backdrop-blur-sm">
                                     <h2
-                                        className="mt-4 text-2xl leading-tight text-text"
+                                        className="text-2xl leading-tight text-text"
                                         style={{ fontFamily: 'var(--font-heading)', fontWeight: 500 }}
                                     >
-                                        Ethem Kaan Loğoğlu
+                                        Avukat Ethem Kaan Loğoğlu
                                     </h2>
-                                    <p className="mt-4 text-sm leading-relaxed text-text-muted">
+                                    <p className="mt-2 text-xs text-text-muted">Kurucu</p>
+                                    <p className="mt-6 text-sm leading-relaxed text-text-muted">
                                         2023 yılında Atılım Üniversitesi Hukuk Fakültesi'nden mezun oldum.
                                         Büromuzu kurarak bireysel ve kurumsal müvekkillere aktif olarak
                                         hukuki destek sunmaktayım.
@@ -140,15 +142,25 @@ export default function Home({ services, articles }: Props) {
                                     </div>
                                     <Link
                                         href="/hakkimizda"
-                                        className="mt-auto inline-flex items-center gap-1.5 pt-8 text-xs font-medium uppercase tracking-[0.12em] text-accent"
+                                        className="mt-auto inline-flex items-center gap-1.5 pt-8 text-xs font-medium text-accent hover:opacity-80"
                                     >
-                                        Hakkımızda Daha Fazlası
+                                        Hakkımızda daha fazlası
                                         <ArrowRight className="h-3 w-3" />
                                     </Link>
                                 </div>
                             </FadeIn>
                         </div>
                     </div>
+
+                    {/* Görsel atıf — sağ alta küçük ve sade */}
+                    {site.hero_image_credit && (
+                        <p
+                            className="absolute bottom-4 right-6 text-[10px] text-text-muted/60"
+                            aria-hidden
+                        >
+                            {site.hero_image_credit}
+                        </p>
+                    )}
                 </Container>
             </div>
 
@@ -156,17 +168,12 @@ export default function Home({ services, articles }: Props) {
             <Section tone="surface" size="wide" className="border-t border-border">
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                     <FadeIn>
-                        <div>
-                            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-text-muted">
-                                Hizmet Alanları
-                            </p>
-                            <h2
-                                className="mt-4 max-w-2xl text-balance text-3xl leading-tight text-text sm:text-4xl lg:text-5xl"
-                                style={{ fontFamily: 'var(--font-heading)', fontWeight: 500 }}
-                            >
-                                Hukukun farklı alanlarında profesyonel destek
-                            </h2>
-                        </div>
+                        <h2
+                            className="max-w-2xl text-balance text-3xl leading-tight text-text sm:text-4xl lg:text-5xl"
+                            style={{ fontFamily: 'var(--font-heading)', fontWeight: 500 }}
+                        >
+                            Hukukun farklı alanlarında profesyonel destek
+                        </h2>
                     </FadeIn>
                     <FadeIn delay={0.1}>
                         <Link
@@ -207,17 +214,12 @@ export default function Home({ services, articles }: Props) {
                 <Section size="wide">
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                         <FadeIn>
-                            <div>
-                                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-text-muted">
-                                    Makaleler
-                                </p>
-                                <h2
-                                    className="mt-4 max-w-2xl text-balance text-3xl leading-tight text-text sm:text-4xl lg:text-5xl"
-                                    style={{ fontFamily: 'var(--font-heading)', fontWeight: 500 }}
-                                >
-                                    Güncel hukuki değerlendirmeler
-                                </h2>
-                            </div>
+                            <h2
+                                className="max-w-2xl text-balance text-3xl leading-tight text-text sm:text-4xl lg:text-5xl"
+                                style={{ fontFamily: 'var(--font-heading)', fontWeight: 500 }}
+                            >
+                                Güncel hukuki değerlendirmeler
+                            </h2>
                         </FadeIn>
                         <FadeIn delay={0.1}>
                             <Link
@@ -243,11 +245,8 @@ export default function Home({ services, articles }: Props) {
             {/* 3 ADIM */}
             <Section tone="accent" size="wide" className="border-y border-border">
                 <FadeIn>
-                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-text-muted">
-                        Süreç
-                    </p>
                     <h2
-                        className="mt-4 max-w-2xl text-balance text-3xl leading-tight text-text sm:text-4xl"
+                        className="max-w-2xl text-balance text-3xl leading-tight text-text sm:text-4xl"
                         style={{ fontFamily: 'var(--font-heading)', fontWeight: 500 }}
                     >
                         Her dosya, aynı titizlikle yönetilir
@@ -298,17 +297,14 @@ export default function Home({ services, articles }: Props) {
                 </div>
             </Section>
 
-            {/* İletişim CTA (ölçülü) */}
+            {/* İletişim CTA */}
             <Section size="wide">
                 <FadeIn>
                     <div className="rounded-xl border border-border bg-surface p-10 sm:p-14 lg:p-20">
                         <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
                             <div className="lg:col-span-7">
-                                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-text-muted">
-                                    İletişim
-                                </p>
                                 <h2
-                                    className="mt-4 text-balance text-3xl leading-tight text-text sm:text-4xl"
+                                    className="text-balance text-3xl leading-tight text-text sm:text-4xl"
                                     style={{ fontFamily: 'var(--font-heading)', fontWeight: 500 }}
                                 >
                                     Hukuki durumunuz hakkında görüşme için randevu talebi iletebilirsiniz.

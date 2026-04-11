@@ -49,7 +49,6 @@ export default function ArticlesIndex({ articles, categories, currentCategory }:
             <Head title="Makaleler" />
 
             <PageHeader
-                eyebrow="Yazılar"
                 title="Makaleler"
                 description="Güncel hukuki gelişmeler ve değerlendirmeler. Yazılarımız bilgi paylaşımı amacıyla hazırlanmıştır ve kişiye özel hukuki görüş niteliği taşımaz."
             />

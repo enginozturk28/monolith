@@ -40,7 +40,6 @@ export default function FaqPage({ categories }: Props) {
             <Head title="Sıkça Sorulan Sorular" />
 
             <PageHeader
-                eyebrow="SSS"
                 title="Sıkça Sorulan Sorular"
                 description="Sıkça sorulan sorulara hazırladığımız yanıtlar bilgilendirme amaçlıdır ve kişiye özel hukuki görüş niteliği taşımaz. Dosyanıza özgü soruların için iletişime geçebilirsiniz."
             />

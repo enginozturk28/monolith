@@ -52,8 +52,7 @@ export default function Contact() {
             <Head title="İletişim" />
 
             <PageHeader
-                eyebrow="İletişim"
-                title="Görüşme ve talepleriniz için"
+                title="İletişim"
                 description="Hukuki durumunuz hakkında görüşme için aşağıdaki form üzerinden talep iletebilir, dilerseniz doğrudan telefon ya da e-posta ile iletişim kurabilirsiniz."
             />
 

@@ -22,7 +22,6 @@ export default function ServicesIndex({ services }: Props) {
             <Head title="Faaliyet Alanları" />
 
             <PageHeader
-                eyebrow="Hizmet Alanları"
                 title="Faaliyet Alanları"
                 description="Hukukun farklı alanlarında bireysel ve kurumsal müvekkillere profesyonel destek sunuyoruz. Her alan için dosyanıza özgü bir değerlendirme yapılır."
             />

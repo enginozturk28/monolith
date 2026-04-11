@@ -20,7 +20,6 @@ export default function About({ vision, mission }: Props) {
             <Head title="Hakkımızda" />
 
             <PageHeader
-                eyebrow="Büromuz"
                 title="Bireysel ve kurumsal müvekkillere etik hukuki destek"
                 description={`2024 yılında kurulan ${site.name ?? 'Loğoğlu Hukuk Bürosu'}, İstanbul merkezli olarak tüm Türkiye'ye yayılmış bir hizmet anlayışıyla faaliyet göstermektedir.`}
             />
@@ -30,11 +29,8 @@ export default function About({ vision, mission }: Props) {
                 <div className="grid gap-16 lg:grid-cols-12 lg:gap-20">
                     <div className="lg:col-span-5">
                         <FadeIn>
-                            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-text-muted">
-                                Büro Tanıtımı
-                            </p>
                             <h2
-                                className="mt-4 text-3xl leading-tight text-text sm:text-4xl"
+                                className="text-3xl leading-tight text-text sm:text-4xl"
                                 style={{ fontFamily: 'var(--font-heading)', fontWeight: 500 }}
                             >
                                 Butik bir hukuk bürosu
@@ -75,11 +71,8 @@ export default function About({ vision, mission }: Props) {
                         {vision && (
                             <FadeIn>
                                 <div>
-                                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-                                        Vizyon
-                                    </p>
                                     <h3
-                                        className="mt-4 text-3xl leading-tight text-text"
+                                        className="text-3xl leading-tight text-text"
                                         style={{ fontFamily: 'var(--font-heading)', fontWeight: 500 }}
                                     >
                                         {vision.title}
@@ -94,11 +87,8 @@ export default function About({ vision, mission }: Props) {
                         {mission && (
                             <FadeIn delay={0.15}>
                                 <div>
-                                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-                                        Misyon
-                                    </p>
                                     <h3
-                                        className="mt-4 text-3xl leading-tight text-text"
+                                        className="text-3xl leading-tight text-text"
                                         style={{ fontFamily: 'var(--font-heading)', fontWeight: 500 }}
                                     >
                                         {mission.title}
@@ -117,15 +107,13 @@ export default function About({ vision, mission }: Props) {
             <Section size="wide">
                 <Container size="narrow" className="px-0">
                     <FadeIn>
-                        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-text-muted">
-                            Kurucu Avukat
-                        </p>
                         <h2
-                            className="mt-4 text-4xl leading-tight text-text sm:text-5xl"
+                            className="text-4xl leading-tight text-text sm:text-5xl"
                             style={{ fontFamily: 'var(--font-heading)', fontWeight: 500 }}
                         >
-                            Ethem Kaan Loğoğlu
+                            Avukat Ethem Kaan Loğoğlu
                         </h2>
+                        <p className="mt-3 text-sm text-text-muted">Kurucu</p>
                     </FadeIn>
 
                     <FadeIn delay={0.1}>

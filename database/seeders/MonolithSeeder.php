@@ -56,9 +56,25 @@ class MonolithSeeder extends Seeder
                 'label' => 'Google Maps Embed URL',
             ],
             ['key' => 'logo_url', 'value' => null, 'type' => 'image', 'label' => 'Logo'],
+            // Görseller — monolith:fetch-images komutu ile Pixabay'den indirilir
+            ['key' => 'hero_image_path', 'value' => null, 'type' => 'image', 'label' => 'Anasayfa Hero Görseli'],
+            ['key' => 'hero_image_credit', 'value' => null, 'type' => 'text', 'label' => 'Hero Görsel Atıf'],
+            ['key' => 'about_image_path', 'value' => null, 'type' => 'image', 'label' => 'Hakkımızda Görseli'],
+            ['key' => 'about_image_credit', 'value' => null, 'type' => 'text', 'label' => 'Hakkımızda Görsel Atıf'],
         ];
 
+        // Mevcut görsel ayarlarını koru — fetch-images komutuyla indirilen
+        // değerleri seed yeniden çalıştırıldığında sıfırlamayalım.
+        $preserveKeys = ['hero_image_path', 'hero_image_credit', 'about_image_path', 'about_image_credit'];
+
         foreach ($site as $i => $row) {
+            if (in_array($row['key'], $preserveKeys, true)) {
+                $existing = Setting::where('group', 'site')->where('key', $row['key'])->first();
+                if ($existing && $existing->value) {
+                    continue;
+                }
+            }
+
             Setting::set('site', $row['key'], $row['value'], [
                 'type' => $row['type'],
                 'label' => $row['label'],
