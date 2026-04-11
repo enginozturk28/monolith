@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Support\MailConfig;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
@@ -49,5 +50,11 @@ class AppServiceProvider extends ServiceProvider
         Livewire::setUpdateRoute(function ($handle) {
             return Route::post('/livewire/update', $handle);
         });
+
+        // SMTP konfigürasyonunu DB Settings'ten yükle.
+        // Eğer panel'den (Filament SmtpSettings page) bir SMTP host girilmişse,
+        // mail.default ve mail.mailers.smtp.* config'leri runtime'da override edilir.
+        // Aksi halde .env'deki MAIL_MAILER (şu an "log") kullanılmaya devam eder.
+        MailConfig::applyFromSettings();
     }
 }
