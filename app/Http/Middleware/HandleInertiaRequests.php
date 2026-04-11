@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Models\Service;
+use App\Services\TurnstileVerifier;
 use App\Support\ThemeManager;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -53,6 +54,14 @@ class HandleInertiaRequests extends Middleware
                     ->values()
                     ->all()
             ),
+
+            // Cloudflare Turnstile site key (frontend için, public — secret değil).
+            // Eğer panel'den girilmemişse null gelir, frontend formu honeypot
+            // ile çalışır. Doluysa Contact.tsx Turnstile widget'ı yükler.
+            'turnstile' => fn () => [
+                'enabled' => app(TurnstileVerifier::class)->isEnabled(),
+                'siteKey' => app(TurnstileVerifier::class)->getSiteKey(),
+            ],
 
             'flash' => fn () => [
                 'success' => $request->session()->get('success'),

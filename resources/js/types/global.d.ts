@@ -53,10 +53,16 @@ export interface FooterService {
     title: string;
 }
 
+export interface TurnstileConfig {
+    enabled: boolean;
+    siteKey: string | null;
+}
+
 export interface SharedProps extends InertiaPageProps {
     site: SiteSettings;
     theme: ThemeTokens;
     footerServices: FooterService[];
+    turnstile: TurnstileConfig;
     flash: {
         success?: string;
         error?: string;

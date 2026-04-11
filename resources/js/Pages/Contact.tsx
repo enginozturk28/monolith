@@ -1,4 +1,4 @@
-import { type FormEvent } from 'react';
+import { type FormEvent, useEffect, useRef } from 'react';
 import { Head, useForm, usePage } from '@inertiajs/react';
 import { CheckCircle2, Mail, MapPin, Phone } from 'lucide-react';
 import MainLayout from '@/Layouts/MainLayout';
@@ -24,10 +24,12 @@ type FormShape = {
     subject: string;
     message: string;
     website: string; // honeypot
+    'cf-turnstile-response': string; // Cloudflare Turnstile token
 };
 
 export default function Contact() {
-    const { site, flash } = usePage<SharedProps>().props;
+    const { site, flash, turnstile } = usePage<SharedProps>().props;
+    const turnstileContainerRef = useRef<HTMLDivElement>(null);
 
     const { data, setData, post, processing, errors, reset } = useForm<FormShape>({
         name: '',
@@ -37,13 +39,54 @@ export default function Contact() {
         subject: '',
         message: '',
         website: '',
+        'cf-turnstile-response': '',
     });
+
+    // Cloudflare Turnstile script'ini sadece panel'den site key girilmişse yükle
+    useEffect(() => {
+        if (!turnstile?.enabled || !turnstile?.siteKey) return;
+
+        // Script zaten yüklü mü?
+        const existing = document.querySelector('script[src*="turnstile/v0/api.js"]');
+        if (!existing) {
+            const script = document.createElement('script');
+            script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+            script.async = true;
+            script.defer = true;
+            document.head.appendChild(script);
+        }
+
+        // Token formdan alınmasın diye - form data'ya yazmak için bir interval
+        // ile widget'ın token'ını yakala (cf-turnstile widget kendi gizli input'una
+        // yazar, biz onu okuyup form state'ine taşıyoruz)
+        const interval = setInterval(() => {
+            const input = document.querySelector<HTMLInputElement>(
+                'input[name="cf-turnstile-response"]',
+            );
+            if (input && input.value && input.value !== data['cf-turnstile-response']) {
+                setData('cf-turnstile-response', input.value);
+            }
+        }, 300);
+
+        return () => clearInterval(interval);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [turnstile?.enabled, turnstile?.siteKey]);
 
     const submit = (e: FormEvent) => {
         e.preventDefault();
         post('/iletisim', {
             preserveScroll: true,
-            onSuccess: () => reset(),
+            onSuccess: () => {
+                reset();
+                // Turnstile widget'ını da reset et
+                if (typeof window !== 'undefined' && (window as unknown as { turnstile?: { reset: () => void } }).turnstile) {
+                    try {
+                        (window as unknown as { turnstile: { reset: () => void } }).turnstile.reset();
+                    } catch {
+                        // sessizce yoksay
+                    }
+                }
+            },
         });
     };
 
@@ -289,6 +332,24 @@ export default function Contact() {
                                             required
                                         />
                                     </Field>
+
+                                    {/* Cloudflare Turnstile widget — sadece panel'den aktif edilmişse */}
+                                    {turnstile?.enabled && turnstile?.siteKey && (
+                                        <div className="border-t border-border pt-6">
+                                            <div
+                                                ref={turnstileContainerRef}
+                                                className="cf-turnstile"
+                                                data-sitekey={turnstile.siteKey}
+                                                data-theme="auto"
+                                                data-language="tr"
+                                            />
+                                            {errors['cf-turnstile-response'] && (
+                                                <p className="mt-2 text-xs text-red-700">
+                                                    {errors['cf-turnstile-response']}
+                                                </p>
+                                            )}
+                                        </div>
+                                    )}
 
                                     <div className="flex items-center justify-between border-t border-border pt-6">
                                         <p className="max-w-xs text-xs leading-relaxed text-text-muted">

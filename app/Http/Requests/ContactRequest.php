@@ -32,6 +32,8 @@ class ContactRequest extends FormRequest
             'message' => ['required', 'string', 'min:20', 'max:5000'],
             // Honeypot — botlar doldurur, gerçek kullanıcılar boş bırakır
             'website' => ['nullable', 'max:0'],
+            // Cloudflare Turnstile token (opsiyonel — aktif değilse boş gelir)
+            'cf-turnstile-response' => ['nullable', 'string', 'max:2048'],
         ];
     }
 
