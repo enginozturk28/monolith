@@ -2,6 +2,7 @@ import { type ReactNode } from 'react';
 import Header from '@/Components/Layout/Header';
 import Footer from '@/Components/Layout/Footer';
 import SmoothScroll from '@/Components/SmoothScroll';
+import ThemeSync from '@/Components/ThemeSync';
 
 type Props = {
     children: ReactNode;
@@ -21,6 +22,7 @@ type Props = {
 export default function MainLayout({ children }: Props) {
     return (
         <div className="flex min-h-dvh flex-col bg-bg text-text">
+            <ThemeSync />
             <SmoothScroll />
             <Header />
             <main className="flex-1">{children}</main>
