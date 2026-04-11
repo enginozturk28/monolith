@@ -30,6 +30,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->profile(isSimple: false) // Filament built-in EditProfile sayfası
             ->brandName('Loğoğlu Hukuk Bürosu')
             ->brandLogo(fn () => view('filament.admin.brand-logo'))
             ->favicon(asset('favicon.ico'))

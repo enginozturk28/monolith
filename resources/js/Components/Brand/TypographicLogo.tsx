@@ -12,17 +12,18 @@ type Props = {
 /**
  * TypographicLogo — Loğoğlu Hukuk Bürosu logosu.
  *
- * Panelden (Filament Settings) gerçek logo yüklendiyse onu gösterir.
- * Yüklenmemişse tipografik "L" monogram + büro adı + alt başlık gösterilir.
+ * Panelden (Site Settings → Logo) gerçek logo yüklendiyse onu gösterir.
+ * Yüklenmemişse tipografik "L" monogram + büro adı (subtitle yok)
+ * fallback olarak kullanılır.
  *
  * Tasarım ekibi logoyu hazırlayıp panelden yüklediğinde bu component'ın
  * kodu değiştirilmeden otomatik olarak yeni logo kullanılır.
  *
  * Varyantlar:
- * - default: Header'da kullanılır, yatay dizilim, monogram + başlık
- * - compact: Dar alanlar için sadece monogram + başlık (alt başlık yok)
+ * - default: Header'da kullanılır, yatay dizilim, monogram + büro adı
+ * - compact: Dar alanlar için (font biraz daha küçük)
  * - minimal: Yalnızca "L" monogram (sidebar dar vs.)
- * - footer: Footer için, alt başlık ile birlikte (daha büyük)
+ * - footer: Footer için, daha büyük monogram + başlık
  */
 export default function TypographicLogo({ variant = 'default', className }: Props) {
     const { site } = usePage<SharedProps>().props;
@@ -37,7 +38,7 @@ export default function TypographicLogo({ variant = 'default', className }: Prop
                 src={logoUrl}
                 alt={name}
                 height={height}
-                className={cn('h-10 w-auto', className)}
+                className={cn('w-auto', className)}
                 style={{ height: `${height}px` }}
             />
         );
@@ -58,8 +59,6 @@ export default function TypographicLogo({ variant = 'default', className }: Prop
         footer: 'text-lg',
     }[variant];
 
-    const subtitleVisible = variant === 'default' || variant === 'footer';
-
     return (
         <div className={cn('flex items-center gap-3', className)}>
             <div
@@ -78,19 +77,12 @@ export default function TypographicLogo({ variant = 'default', className }: Prop
             </div>
 
             {variant !== 'minimal' && (
-                <div className="flex flex-col leading-tight">
-                    <span
-                        className={cn('font-semibold tracking-tight text-text', titleSize)}
-                        style={{ fontFamily: 'var(--font-heading)' }}
-                    >
-                        {name}
-                    </span>
-                    {subtitleVisible && site.tagline && (
-                        <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-text-muted">
-                            Hukuk Bürosu
-                        </span>
-                    )}
-                </div>
+                <span
+                    className={cn('font-semibold tracking-tight text-text', titleSize)}
+                    style={{ fontFamily: 'var(--font-heading)' }}
+                >
+                    {name}
+                </span>
             )}
         </div>
     );
