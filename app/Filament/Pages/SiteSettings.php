@@ -88,6 +88,19 @@ class SiteSettings extends Page implements HasForms
 
             'about_intro_body' => $data['about_intro_body'] ?? '',
             'founder_bio' => $data['founder_bio'] ?? '',
+
+            // Hero bölümü
+            'hero_title' => $data['hero_title'] ?? '',
+            'hero_description' => $data['hero_description'] ?? '',
+
+            // Süreç bölümü
+            'process_title' => $data['process_title'] ?? '',
+            'process_step_1_title' => $data['process_step_1_title'] ?? 'Değerlendirme',
+            'process_step_1_text' => $data['process_step_1_text'] ?? '',
+            'process_step_2_title' => $data['process_step_2_title'] ?? 'Yönlendirme',
+            'process_step_2_text' => $data['process_step_2_text'] ?? '',
+            'process_step_3_title' => $data['process_step_3_title'] ?? 'Takip',
+            'process_step_3_text' => $data['process_step_3_text'] ?? '',
         ]);
     }
 
@@ -214,6 +227,55 @@ class SiteSettings extends Page implements HasForms
                     ])
                     ->columns(2),
 
+                Section::make('Ana Sayfa — Hero Bölümü')
+                    ->description('Ana sayfanın üst kısmındaki büyük başlık ve açıklama. Vurgu kelimesi için <em>kelime</em> kullanın.')
+                    ->icon(Heroicon::OutlinedSparkles)
+                    ->collapsed()
+                    ->schema([
+                        TextInput::make('hero_title')
+                            ->label('Hero Başlık')
+                            ->maxLength(300)
+                            ->helperText('HTML destekli — <em>kelime</em> ile italik/vurgulu kelime ekleyebilirsiniz. Örn: Hukuki süreçlerinizde <em>güvenilir</em> ve çözüm odaklı bir yaklaşım.')
+                            ->columnSpanFull(),
+
+                        Textarea::make('hero_description')
+                            ->label('Hero Açıklama')
+                            ->rows(3)
+                            ->maxLength(500)
+                            ->helperText('Boş bırakılırsa büro adı + varsayılan tanıtım metni kullanılır.')
+                            ->columnSpanFull(),
+                    ]),
+
+                Section::make('Ana Sayfa — Süreç Bölümü')
+                    ->description('"Değerlendirme → Yönlendirme → Takip" bölümünün başlık ve adım metinleri.')
+                    ->icon(Heroicon::OutlinedListBullet)
+                    ->collapsed()
+                    ->schema([
+                        TextInput::make('process_title')
+                            ->label('Bölüm Başlığı')
+                            ->maxLength(200)
+                            ->columnSpanFull(),
+
+                        TextInput::make('process_step_1_title')
+                            ->label('Adım 1 — Başlık'),
+                        Textarea::make('process_step_1_text')
+                            ->label('Adım 1 — Açıklama')
+                            ->rows(2),
+
+                        TextInput::make('process_step_2_title')
+                            ->label('Adım 2 — Başlık'),
+                        Textarea::make('process_step_2_text')
+                            ->label('Adım 2 — Açıklama')
+                            ->rows(2),
+
+                        TextInput::make('process_step_3_title')
+                            ->label('Adım 3 — Başlık'),
+                        Textarea::make('process_step_3_text')
+                            ->label('Adım 3 — Açıklama')
+                            ->rows(2),
+                    ])
+                    ->columns(2),
+
                 Section::make('Hakkımızda İçeriği')
                     ->description('Hakkımızda sayfasının metin blokları. Zengin editör ile paragraf, kalın, italik, liste ve link ekleyebilirsiniz.')
                     ->icon(Heroicon::OutlinedDocumentText)
@@ -286,6 +348,17 @@ class SiteSettings extends Page implements HasForms
             'x_url' => 'text',
             'about_intro_body' => 'textarea',
             'founder_bio' => 'textarea',
+            // Hero bölümü
+            'hero_title' => 'text',
+            'hero_description' => 'textarea',
+            // Süreç bölümü
+            'process_title' => 'text',
+            'process_step_1_title' => 'text',
+            'process_step_1_text' => 'textarea',
+            'process_step_2_title' => 'text',
+            'process_step_2_text' => 'textarea',
+            'process_step_3_title' => 'text',
+            'process_step_3_text' => 'textarea',
         ];
 
         foreach ($fieldTypes as $key => $type) {

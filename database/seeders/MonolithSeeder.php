@@ -90,6 +90,19 @@ HTML;
             // Hakkımızda içerikleri
             ['key' => 'about_intro_body', 'value' => $aboutIntroBodyDefault, 'type' => 'textarea', 'label' => 'Hakkımızda — Büro Tanıtım Metni (HTML)'],
             ['key' => 'founder_bio', 'value' => $founderBioDefault, 'type' => 'textarea', 'label' => 'Hakkımızda — Kurucu Avukat Biyografisi (HTML)'],
+
+            // Ana sayfa hero bölümü
+            ['key' => 'hero_title', 'value' => 'Hukuki süreçlerinizde <em>güvenilir</em> ve çözüm odaklı bir yaklaşım.', 'type' => 'text', 'label' => 'Hero Başlık (HTML destekli, <em> ile vurgu)'],
+            ['key' => 'hero_description', 'value' => null, 'type' => 'textarea', 'label' => 'Hero Açıklama Metni (boşsa büro adı + varsayılan metin)'],
+
+            // Ana sayfa süreç bölümü ("Her dosya, aynı titizlikle yönetilir")
+            ['key' => 'process_title', 'value' => 'Her dosya, aynı titizlikle yönetilir', 'type' => 'text', 'label' => 'Süreç Bölümü Başlık'],
+            ['key' => 'process_step_1_title', 'value' => 'Değerlendirme', 'type' => 'text', 'label' => 'Süreç Adım 1 — Başlık'],
+            ['key' => 'process_step_1_text', 'value' => 'Her dosya detaylı bir hukuki durum analizi ile ele alınır. İlk görüşmede müvekkilin beklentisi ve dosyanın niteliği netleştirilir.', 'type' => 'textarea', 'label' => 'Süreç Adım 1 — Açıklama'],
+            ['key' => 'process_step_2_title', 'value' => 'Yönlendirme', 'type' => 'text', 'label' => 'Süreç Adım 2 — Başlık'],
+            ['key' => 'process_step_2_text', 'value' => 'Müvekkile süreç, olası senaryolar, alternatif çözümler ve tahmini maliyet hakkında şeffaf bilgi sunulur.', 'type' => 'textarea', 'label' => 'Süreç Adım 2 — Açıklama'],
+            ['key' => 'process_step_3_title', 'value' => 'Takip', 'type' => 'text', 'label' => 'Süreç Adım 3 — Başlık'],
+            ['key' => 'process_step_3_text', 'value' => 'Dosyanın her aşaması düzenli olarak raporlanır. Acil gelişmelerde müvekkille anında iletişim kurulur.', 'type' => 'textarea', 'label' => 'Süreç Adım 3 — Açıklama'],
         ];
 
         // Mevcut kullanıcı-yönetimli değerleri koru — seed yeniden çalıştırıldığında
@@ -102,6 +115,11 @@ HTML;
             'footer_description', 'copyright_text',
             'about_intro_body', 'founder_bio',
             'whatsapp_url', 'instagram_url', 'x_url',
+            'hero_title', 'hero_description',
+            'process_title',
+            'process_step_1_title', 'process_step_1_text',
+            'process_step_2_title', 'process_step_2_text',
+            'process_step_3_title', 'process_step_3_text',
         ];
 
         foreach ($site as $i => $row) {

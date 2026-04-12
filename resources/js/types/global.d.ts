@@ -32,6 +32,14 @@ export interface SiteSettings {
     // İçerik blokları (HTML)
     about_intro_body: string | null;
     founder_bio: string | null;
+
+    // Hero bölümü
+    hero_title: string | null;
+    hero_description: string | null;
+
+    // Süreç bölümü
+    process_title: string | null;
+    process_steps: Array<{ title: string; text: string }>;
 }
 
 export interface ThemeTokens {

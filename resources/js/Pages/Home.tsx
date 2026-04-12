@@ -69,24 +69,36 @@ export default function Home({ services, articles }: Props) {
                     <div className="grid gap-16 lg:grid-cols-12 lg:gap-20">
                         <div className="lg:col-span-8">
                             <FadeIn>
-                                <h1
-                                    className="max-w-4xl text-balance text-5xl leading-[1.02] text-text sm:text-6xl lg:text-7xl"
-                                    style={{ fontFamily: 'var(--font-heading)', fontWeight: 500 }}
-                                >
-                                    Hukuki süreçlerinizde{' '}
-                                    <span style={{ color: 'var(--color-accent)', fontStyle: 'italic' }}>
-                                        güvenilir
-                                    </span>{' '}
-                                    ve çözüm odaklı bir yaklaşım.
-                                </h1>
+                                {site.hero_title ? (
+                                    <h1
+                                        className="max-w-4xl text-balance text-5xl leading-[1.02] text-text sm:text-6xl lg:text-7xl"
+                                        style={{ fontFamily: 'var(--font-heading)', fontWeight: 500 }}
+                                        dangerouslySetInnerHTML={{
+                                            __html: site.hero_title.replace(
+                                                /<em>(.*?)<\/em>/g,
+                                                '<span style="color:var(--color-accent);font-style:italic">$1</span>',
+                                            ),
+                                        }}
+                                    />
+                                ) : (
+                                    <h1
+                                        className="max-w-4xl text-balance text-5xl leading-[1.02] text-text sm:text-6xl lg:text-7xl"
+                                        style={{ fontFamily: 'var(--font-heading)', fontWeight: 500 }}
+                                    >
+                                        Hukuki süreçlerinizde{' '}
+                                        <span style={{ color: 'var(--color-accent)', fontStyle: 'italic' }}>
+                                            güvenilir
+                                        </span>{' '}
+                                        ve çözüm odaklı bir yaklaşım.
+                                    </h1>
+                                )}
                             </FadeIn>
 
                             <FadeIn delay={0.1}>
                                 <p className="mt-10 max-w-2xl text-lg leading-relaxed text-text-muted sm:text-xl">
-                                    {site.name ?? 'Loğoğlu Hukuk Bürosu'}, bireysel ve kurumsal
-                                    müvekkillerine etik ve şeffaf bir anlayışla hukuki danışmanlık
-                                    ve dava takibi hizmeti sunar. Her dosyayı titizlikle değerlendirir,
-                                    güncel mevzuat ve içtihat analizleri ışığında süreçleri yönetiriz.
+                                    {site.hero_description
+                                        ? site.hero_description
+                                        : `${site.name ?? 'Loğoğlu Hukuk Bürosu'}, bireysel ve kurumsal müvekkillerine etik ve şeffaf bir anlayışla hukuki danışmanlık ve dava takibi hizmeti sunar. Her dosyayı titizlikle değerlendirir, güncel mevzuat ve içtihat analizleri ışığında süreçleri yönetiriz.`}
                                 </p>
                             </FadeIn>
 
@@ -237,36 +249,20 @@ export default function Home({ services, articles }: Props) {
                 </Section>
             )}
 
-            {/* 3 ADIM */}
+            {/* 3 ADIM — panelden düzenlenebilir */}
             <Section tone="accent" size="wide" className="border-y border-border">
                 <FadeIn>
                     <h2
                         className="max-w-2xl text-balance text-3xl leading-tight text-text sm:text-4xl"
                         style={{ fontFamily: 'var(--font-heading)', fontWeight: 500 }}
                     >
-                        Her dosya, aynı titizlikle yönetilir
+                        {site.process_title || 'Her dosya, aynı titizlikle yönetilir'}
                     </h2>
                 </FadeIn>
 
                 <div className="mt-12 grid gap-8 sm:grid-cols-3">
-                    {[
-                        {
-                            step: '01',
-                            title: 'Değerlendirme',
-                            text: 'Her dosya detaylı bir hukuki durum analizi ile ele alınır. İlk görüşmede müvekkilin beklentisi ve dosyanın niteliği netleştirilir.',
-                        },
-                        {
-                            step: '02',
-                            title: 'Yönlendirme',
-                            text: 'Müvekkile süreç, olası senaryolar, alternatif çözümler ve tahmini maliyet hakkında şeffaf bilgi sunulur.',
-                        },
-                        {
-                            step: '03',
-                            title: 'Takip',
-                            text: 'Dosyanın her aşaması düzenli olarak raporlanır. Acil gelişmelerde müvekkille anında iletişim kurulur.',
-                        },
-                    ].map((item, i) => (
-                        <FadeIn key={item.step} delay={0.08 * i}>
+                    {(site.process_steps ?? []).map((step, i) => (
+                        <FadeIn key={i} delay={0.08 * i}>
                             <div>
                                 <p
                                     className="text-5xl font-medium leading-none"
@@ -275,16 +271,16 @@ export default function Home({ services, articles }: Props) {
                                         color: 'var(--color-accent)',
                                     }}
                                 >
-                                    {item.step}
+                                    {String(i + 1).padStart(2, '0')}
                                 </p>
                                 <h3
                                     className="mt-6 text-xl text-text"
                                     style={{ fontFamily: 'var(--font-heading)', fontWeight: 500 }}
                                 >
-                                    {item.title}
+                                    {step.title}
                                 </h3>
                                 <p className="mt-4 text-sm leading-relaxed text-text-muted">
-                                    {item.text}
+                                    {step.text}
                                 </p>
                             </div>
                         </FadeIn>

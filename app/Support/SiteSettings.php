@@ -85,6 +85,27 @@ class SiteSettings
             // İçerik blokları
             'about_intro_body' => $data['about_intro_body'] ?? null,
             'founder_bio' => $data['founder_bio'] ?? null,
+
+            // Hero bölümü
+            'hero_title' => $data['hero_title'] ?? null,
+            'hero_description' => $data['hero_description'] ?? null,
+
+            // Süreç bölümü (frontend'e array olarak gider, kolay render)
+            'process_title' => $data['process_title'] ?? null,
+            'process_steps' => [
+                [
+                    'title' => $data['process_step_1_title'] ?? 'Değerlendirme',
+                    'text' => $data['process_step_1_text'] ?? '',
+                ],
+                [
+                    'title' => $data['process_step_2_title'] ?? 'Yönlendirme',
+                    'text' => $data['process_step_2_text'] ?? '',
+                ],
+                [
+                    'title' => $data['process_step_3_title'] ?? 'Takip',
+                    'text' => $data['process_step_3_text'] ?? '',
+                ],
+            ],
         ];
     }
 
