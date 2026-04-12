@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\Page;
 use App\Models\Service;
+use App\Support\SiteSettings;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 
@@ -38,15 +39,21 @@ class SitemapController extends Controller
     {
         $urls = [];
 
+        $settings = app(SiteSettings::class);
+
         // 1) Statik sayfalar
         $staticRoutes = [
             ['url' => route('home'), 'priority' => '1.0', 'changefreq' => 'weekly'],
             ['url' => route('about'), 'priority' => '0.8', 'changefreq' => 'monthly'],
             ['url' => route('services.index'), 'priority' => '0.9', 'changefreq' => 'monthly'],
             ['url' => route('articles.index'), 'priority' => '0.8', 'changefreq' => 'weekly'],
-            ['url' => route('faq'), 'priority' => '0.7', 'changefreq' => 'monthly'],
             ['url' => route('contact'), 'priority' => '0.7', 'changefreq' => 'yearly'],
         ];
+
+        // SSS panelden açıksa sitemap'e ekle
+        if ($settings->get('show_faq_page')) {
+            $staticRoutes[] = ['url' => route('faq'), 'priority' => '0.7', 'changefreq' => 'monthly'];
+        }
 
         foreach ($staticRoutes as $route) {
             $urls[] = [

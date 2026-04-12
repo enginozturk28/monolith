@@ -91,6 +91,9 @@ HTML;
             ['key' => 'about_intro_body', 'value' => $aboutIntroBodyDefault, 'type' => 'textarea', 'label' => 'Hakkımızda — Büro Tanıtım Metni (HTML)'],
             ['key' => 'founder_bio', 'value' => $founderBioDefault, 'type' => 'textarea', 'label' => 'Hakkımızda — Kurucu Avukat Biyografisi (HTML)'],
 
+            // Sayfa görünürlük toggleları
+            ['key' => 'show_faq_page', 'value' => '0', 'type' => 'boolean', 'label' => 'SSS Sayfasını Göster'],
+
             // Ana sayfa hero bölümü
             ['key' => 'hero_title', 'value' => 'Hukuki süreçlerinizde <em>güvenilir</em> ve çözüm odaklı bir yaklaşım.', 'type' => 'text', 'label' => 'Hero Başlık (HTML destekli, <em> ile vurgu)'],
             ['key' => 'hero_description', 'value' => null, 'type' => 'textarea', 'label' => 'Hero Açıklama Metni (boşsa büro adı + varsayılan metin)'],
@@ -115,6 +118,7 @@ HTML;
             'footer_description', 'copyright_text',
             'about_intro_body', 'founder_bio',
             'whatsapp_url', 'instagram_url', 'x_url',
+            'show_faq_page',
             'hero_title', 'hero_description',
             'process_title',
             'process_step_1_title', 'process_step_1_text',

@@ -86,6 +86,9 @@ class SiteSettings
             'about_intro_body' => $data['about_intro_body'] ?? null,
             'founder_bio' => $data['founder_bio'] ?? null,
 
+            // Sayfa görünürlük
+            'show_faq_page' => filter_var($data['show_faq_page'] ?? false, FILTER_VALIDATE_BOOLEAN),
+
             // Hero bölümü
             'hero_title' => $data['hero_title'] ?? null,
             'hero_description' => $data['hero_description'] ?? null,

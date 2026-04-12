@@ -11,6 +11,9 @@ export type NavItem = {
     href: string;
     routeName?: string;
     description?: string;
+    /** Eğer true ise bu item panelden kontrol edilen bir toggle'a bağlıdır.
+     *  Component'ler site settings'ten kontrol ederek filtrelemelidir. */
+    visibilityKey?: string;
 };
 
 export const mainNavigation: NavItem[] = [
@@ -41,6 +44,7 @@ export const mainNavigation: NavItem[] = [
         label: 'Sıkça Sorulan Sorular',
         href: '/sss',
         routeName: 'faq',
+        visibilityKey: 'show_faq_page',
     },
     {
         label: 'İletişim',

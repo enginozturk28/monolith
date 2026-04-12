@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, usePage } from '@inertiajs/react';
 import { Menu, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
@@ -6,6 +6,7 @@ import TypographicLogo from '@/Components/Brand/TypographicLogo';
 import Container from './Container';
 import { mainNavigation } from '@/lib/nav';
 import { cn } from '@/lib/utils';
+import type { SharedProps } from '@/types/global';
 
 /**
  * Header — sabit olmayan, scroll ile ince border ve arka plan kazanan ana header.
@@ -19,8 +20,20 @@ import { cn } from '@/lib/utils';
  */
 export default function Header() {
     const { url } = usePage();
+    const { site } = usePage<SharedProps>().props;
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
+
+    // Panelden kontrol edilen sayfa toggle'larına göre nav filtreleme
+    const visibleNav = useMemo(() => {
+        const visibilityMap: Record<string, boolean> = {
+            show_faq_page: site.show_faq_page,
+        };
+        return mainNavigation.filter((item) => {
+            if (!item.visibilityKey) return true;
+            return visibilityMap[item.visibilityKey] ?? true;
+        });
+    }, [site.show_faq_page]);
 
     // Scroll'da header background/border yoğunlaştır
     useEffect(() => {
@@ -72,7 +85,7 @@ export default function Header() {
 
                 {/* Desktop navigation */}
                 <nav aria-label="Ana menü" className="hidden items-center gap-1 lg:flex">
-                    {mainNavigation.map((item) => (
+                    {visibleNav.map((item) => (
                         <Link
                             key={item.href}
                             href={item.href}

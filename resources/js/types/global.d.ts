@@ -33,6 +33,9 @@ export interface SiteSettings {
     about_intro_body: string | null;
     founder_bio: string | null;
 
+    // Sayfa görünürlük
+    show_faq_page: boolean;
+
     // Hero bölümü
     hero_title: string | null;
     hero_description: string | null;

@@ -107,16 +107,22 @@ export default function Footer() {
                             Menü
                         </h3>
                         <ul className="mt-5 space-y-2.5">
-                            {mainNavigation.map((item) => (
-                                <li key={item.href}>
-                                    <Link
-                                        href={item.href}
-                                        className="text-sm text-text-muted transition-colors hover:text-text"
-                                    >
-                                        {item.label}
-                                    </Link>
-                                </li>
-                            ))}
+                            {mainNavigation
+                                .filter((item) => {
+                                    if (!item.visibilityKey) return true;
+                                    if (item.visibilityKey === 'show_faq_page') return site.show_faq_page;
+                                    return true;
+                                })
+                                .map((item) => (
+                                    <li key={item.href}>
+                                        <Link
+                                            href={item.href}
+                                            className="text-sm text-text-muted transition-colors hover:text-text"
+                                        >
+                                            {item.label}
+                                        </Link>
+                                    </li>
+                                ))}
                         </ul>
                     </nav>
 

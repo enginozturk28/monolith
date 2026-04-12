@@ -3,13 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\FaqCategory;
+use App\Support\SiteSettings;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class FaqController extends Controller
 {
-    public function __invoke(): Response
+    public function __invoke(SiteSettings $settings): Response
     {
+        // Panel'den SSS kapatılmışsa 404 dön
+        if (! $settings->get('show_faq_page')) {
+            abort(404);
+        }
+
         $categories = FaqCategory::query()
             ->published()
             ->ordered()

@@ -10,6 +10,7 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Notifications\Notification;
@@ -93,6 +94,9 @@ class SiteSettings extends Page implements HasForms
             'hero_title' => $data['hero_title'] ?? '',
             'hero_description' => $data['hero_description'] ?? '',
 
+            // Sayfa görünürlük
+            'show_faq_page' => filter_var($data['show_faq_page'] ?? false, FILTER_VALIDATE_BOOLEAN),
+
             // Süreç bölümü
             'process_title' => $data['process_title'] ?? '',
             'process_step_1_title' => $data['process_step_1_title'] ?? 'Değerlendirme',
@@ -158,6 +162,15 @@ class SiteSettings extends Page implements HasForms
                             ->getUploadedFileNameForStorageUsing(
                                 fn ($file): string => 'logo-'.now()->format('Ymd-His').'.'.$file->getClientOriginalExtension()
                             ),
+                    ]),
+
+                Section::make('Sayfa Görünürlüğü')
+                    ->description('Belirli sayfaları site menüsünden ve navigasyondan gizleyebilirsiniz. Gizlenen sayfa\'nın kodu silinmez, ileride tekrar açabilirsiniz.')
+                    ->icon(Heroicon::OutlinedEye)
+                    ->schema([
+                        Toggle::make('show_faq_page')
+                            ->label('Sıkça Sorulan Sorular (SSS) sayfasını göster')
+                            ->helperText('Kapatıldığında SSS sayfası menüden kalkar, /sss URL\'si 404 döner. İçerik korunur, tekrar açtığınızda eski haliyle gelir.'),
                     ]),
 
                 Section::make('İletişim Bilgileri')
@@ -348,6 +361,8 @@ class SiteSettings extends Page implements HasForms
             'x_url' => 'text',
             'about_intro_body' => 'textarea',
             'founder_bio' => 'textarea',
+            // Sayfa görünürlük
+            'show_faq_page' => 'boolean',
             // Hero bölümü
             'hero_title' => 'text',
             'hero_description' => 'textarea',
