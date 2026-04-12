@@ -10,6 +10,7 @@ use App\Http\Controllers\RobotsController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SitemapController;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |---------------------------------------------------------------------------
@@ -48,3 +49,12 @@ Route::get('/sayfa/{page:slug}', [PageController::class, 'show'])->name('page.sh
 // SEO endpoint'leri
 Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
 Route::get('/robots.txt', RobotsController::class)->name('robots');
+
+// Fallback — hiçbir route match etmediğinde 404 Inertia sayfası.
+// Route::fallback web middleware group'unda çalışır, dolayısıyla
+// HandleInertiaRequests shared props (site, theme, footerServices)
+// yüklenir ve Error.tsx tam layout ile render olur.
+Route::fallback(fn () => Inertia::render('Error', ['status' => 404])
+    ->toResponse(request())
+    ->setStatusCode(404)
+);
